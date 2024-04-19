@@ -15,7 +15,7 @@ class Order < ApplicationRecord
     ["address", "created_at", "gst", "hst", "id", "payment_method", "pst", "status", "total_amount", "updated_at", "user_id"]
   end
   def calculate_taxes
-    # case user.province
+    case user.province
     when 'Ontario'
       self.pst = nil
       self.gst = total_amount * 0.05
