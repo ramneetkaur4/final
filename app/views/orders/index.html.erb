@@ -1,0 +1,26 @@
+<h1>Your Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Products Ordered</th>
+      <%# <th>Tax</th> %>
+      <th>Grand Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td>
+          <% order.order_items.each do |item| %>
+            <%= item.product.name %> (<%= item.quantity %> qty) <br>
+          <% end %>
+        </td>
+        <%# <td></td> %>
+        <td><%= order.total_amount %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+<h1>Enter Address Details</h1>
+
+<%= form_for @order, url: place_order_path, method: :post do |f| %>
+  <!-- Add form fields for street address, city, state, postal code, country, etc. -->
+  <%= f.label :street_address, "Street Address" %>
+  <%= f.text_field :street_address %>
+
+  <!-- Add more form fields as needed -->
+
+  <%= f.submit "Proceed to Place Order", class: "btn btn-primary" %>
+<% end %>

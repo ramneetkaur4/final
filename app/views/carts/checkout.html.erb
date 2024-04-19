@@ -1,0 +1,13 @@
+<h1>Checkout</h1>
+<div>
+  <!-- Display cart items and total -->
+</div>
+<div>
+  <%= form_for @order, url: place_order_path do |f| %>
+    <!-- Address fields -->
+    <%= f.label :street_address %>
+    <%= f.text_field :street_address %>
+    <!-- Other address fields -->
+    <%= f.submit "Place Order" %>
+  <% end %>
+</div>

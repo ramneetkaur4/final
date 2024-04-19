@@ -1,0 +1,16 @@
+<h1>Invoice</h1>
+<h2>Order Details:</h2>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li><%= item.product.name %> - Quantity: <%= item.quantity %> - Subtotal: $<%= item.subtotal %></li>
+  <% end %>
+</ul>
+<h2>Taxes:</h2>
+<p>GST: <%= @order.gst_amount %></p>
+<p>PST: <%= @order.pst_amount %></p>
+<p>HST: <%= @order.hst_amount %></p>
+<h2>Total Amount (including taxes): $<%= @order.total_amount %></h2>
+
+<h2>Shipping Address:</h2>
+<p><%= @order.user.address %></p>
+<p><%= @order.user.province.name %></p>

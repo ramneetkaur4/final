@@ -1,0 +1,13 @@
+<h1><%= @category.name %> Category</h1>
+
+<% if @products.any? %>
+  <h2>Products in <%= @category.name %> Category</h2>
+  <ul>
+    <% @products.each do |product| %>
+      <li><%= link_to product.name, product_path(product) %></li>
+    <% end %>
+  </ul>
+  <%= paginate @products %>
+<% else %>
+  <p>No products found in <%= @category.name %> Category.</p>
+<% end %>

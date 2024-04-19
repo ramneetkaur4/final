@@ -1,0 +1,139 @@
+<% if @cart_items.size == 0 %>
+  <div class="shopping-cart">
+    <br>
+    <br>
+    <p class="text-center">
+      No products in cart. Please <%= link_to "go back", root_path %> and add products.
+    </p>
+<% else %>
+  <section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-8">
+                  <div class="p-5">
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                      <h1 class="fw-bold mb-0 text-black">Your Products Cart</h1>
+                      <h6 class="mb-0 text-muted"><%= @cart_items&.size %> products</h6>
+                    </div>
+                    <hr class="my-4">
+                    <% @cart_items.each do |order_item| %>
+                      <div class="row">
+                        <div class="col">
+                          <div class="card-body">
+                            <%= form_for order_item, remote: true do |f| %>
+                              <div class="form-group">
+                                <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1 %>
+                                <%= f.hidden_field :product_id, value: order_item.product_id %>
+                              </div>
+                              <div class="btn-group">
+                                <%= f.submit "Update Quantity", class: "btn btn-primary" %>
+                                <%= link_to "Delete", order_item, {data: {confirm: "Are you sure you wish to delete the product '#{order_item.product.name}' from your cart?"}, data: { "turbo-method": :delete }, remote: true, class: "btn btn-danger"} %>
+                              </div>
+                              <p>Total Price:
+                                <%= number_to_currency order_item.amount %>
+                              </p>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                    <% end %>
+                  </div>
+                </div>
+                <div class="col-lg-4 bg-grey">
+                  <div class="p-5">
+                    <h3 class="fw-bold mb-5 mt-2 pt-1">Order Info</h3>
+                    <hr class="my-4">
+                    <%= form_with url: checkout_path(@order.id), method: :get do |f| %>
+
+                      <div class="d-flex justify-content-between mb-4">
+                        <h5 class="text-uppercase">products <%= @cart_items.size %></h5>
+                        <h5> <%= @order.total_amount %></h5>
+                      </div>
+
+                      <h5 class="text-uppercase mb-3">Payment Method</h5>
+
+                      <div class="mb-4 pb-2">
+                        <%= f.select :payment_method, options_for_select([['Cash on Delivery', 0],['Online Payment', 1]]), {:include_blank => 'Select Payment Method'},  {class: "form-control select"} %>
+                      </div>
+
+                      <h5 class="text-uppercase mb-3"> Address Details</h5>
+
+                      <div class="mb-5">
+                        <div class="form-outline">
+                          <%= f.text_field :address, id: "form3Examplea2", :class => "form-control form-control-lg"  %>
+                        </div>
+                        <div class="mb-5">
+                        <%= f.label :province, class: "form-label" %>
+                        <%= f.select :province, options_for_select(["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan"]), { include_blank: 'Select Province' }, { class: "form-control", id: "province_select" } %>
+                      </div>
+                      </div>
+
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between mb-5">
+                              <h5 class="text-uppercase">Total price</h5>
+                              <h5 id="total_price"><%= @order&.total_amount %></h5>
+                              <br><br>
+                              <%# <h6 class="text-uppercase">Tax Amount</h6> %>
+
+                              <%# <h6 id="tax_amount">0.00</h6> %>
+                            </div>
+
+                            <%= f.submit "Check Out", :class => "btn btn-dark btn-block btn-lg" %>
+
+                              </div>
+                            <% end %>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </section>
+    <% end %>
+//  <script>
+//  document.addEventListener("DOMContentLoaded", function() {
+//    const provinceSelect = document.getElementById("province_select");
+
+//    function updateTotalPrice() {
+//      const totalPriceElement = document.querySelector("#total_price");
+//      const taxAmountElement = document.querySelector("#tax_amount");
+//      const originalPrice = parseFloat(<%= @order.total_amount %>);
+//      let taxRate = 0;
+
+//      if (provinceSelect.value === "Manitoba") {
+//        taxRate = 0.12;
+//      } else if (provinceSelect.value === "Ontario") {
+//        taxRate = 0.18;
+//      } else if (provinceSelect.value === "British Columbia") {
+//       taxRate = 0.12;
+//      } else if (provinceSelect.value === "Alberta", "Northwest Territories", "Nunavut", "Yukon") {
+//        taxRate = 0.05;
+//      }  else if (provinceSelect.value === "Quebec") {
+//        taxRate = 0.14975;
+//      } else if (provinceSelect.value === "Saskatchewan") {
+//        taxRate = 0.11;
+//      } else if (provinceSelect.value === "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island") {
+//       taxRate = 0.15;
+//      }
+
+//      const taxAmount = originalPrice * taxRate;
+//      const newTotalPrice = originalPrice * (1 + taxRate);
+
+//      totalPriceElement.textContent = newTotalPrice.toFixed(2);
+//      taxAmountElement.textContent = taxAmount.toFixed(2);
+//    }
+
+//    provinceSelect.addEventListener("change", function() {
+//      updateTotalPrice();
+//    });
+
+//    updateTotalPrice();
+//  });
+</script>

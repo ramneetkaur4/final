@@ -1,0 +1,12 @@
+<h1>All Categories</h1>
+
+<% if @categories.any? %>
+  <ul>
+    <% @categories.each do |category| %>
+      <%= render partial: 'category', locals: { category: category } %>
+    <% end %>
+  </ul>
+  <%= paginate @categories %>
+<% else %>
+  <p>No categories found.</p>
+<% end %>

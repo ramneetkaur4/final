@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search</title>
+  <!-- Bootstrap CSS -->
+  <style>
+    /* Custom CSS */
+    body {
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Product Search</h1>
+
+    <%= form_with(url: search_index_path, method: :get) do |form| %>
+      <div class="mb-3">
+        <%= form.label :keyword, "Keyword:", class: "form-label" %>
+        <%= form.text_field :keyword, value: params[:keyword], class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :category_id, "Category:", class: "form-label" %>
+        <%= form.collection_select :category_id, @categories, :id, :name, { prompt: "All Categories" }, { class: "form-select", onchange: "this.form.submit()" } %>
+      </div>
+
+      <%= form.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+
+    <% if @products.any? %>
+      <h2>Search Results:</h2>
+      <ul class="list-group">
+        <% @products.each do |product| %>
+          <li class="list-group-item"><%= link_to product.name, product_path(product) %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No products found.</p>
+    <% end %>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+</body>
+</html>
