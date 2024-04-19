@@ -9,7 +9,7 @@ def import_products_from_csv(filepath)
   end
 
   # Open the CSV file
-  # CSV.foreach(filepath, headers: true) do |row|
+  CSV.foreach(filepath, headers: true) do |row|
     # Extract product data from each row
     name = row["Name"]
     description = row["Description"]
