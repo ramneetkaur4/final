@@ -1,12 +1,12 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :order_items
+  #has_many :order_items
   has_many :products, through: :order_items
 
   enum payment_method: { cash_on_delivery: 0, online_payment: 1 }
   enum status: { order_created: 0, order_delivered: 1, order_cancelled: 2 }
 
-  # validates :user_id, presence: true
+  validates :user_id, presence: true
   # validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   def self.ransackable_associations(auth_object = nil)
     ["order_items", "products", "user"]
