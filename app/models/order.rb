@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  #has_many :order_items
+  has_many :order_items
   has_many :products, through: :order_items
 
   enum payment_method: { cash_on_delivery: 0, online_payment: 1 }
