@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   def new; end
 
-  # def create
+  def create
     @order = current_order
     @amount = current_order.total_amount
 
