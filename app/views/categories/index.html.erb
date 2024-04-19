@@ -2,7 +2,7 @@
 
 <% if @categories.any? %>
   <ul>
-    # <% @categories.each do |category| %>
+  <% @categories.each do |category| %>
       <%= render partial: 'category', locals: { category: category } %>
     <% end %>
   </ul>

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
+  # def create
     @user = User.new(user_params)
     if @user.save
       # Handle successful user creation, e.g., redirect to the user's profile
